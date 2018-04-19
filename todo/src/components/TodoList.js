@@ -1,35 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addtodo } from '../actions';
-
+import { addtodo, toggleComplete } from '../actions';
 
 
 class TodoList extends Component {
     state = {
-        todo: {
-            value: '',
-            completed: false
-        }
+        value: ''
     };
 
     handleChange = (event) => {
-        this.setState( {todo.value: event.target.todo} )
+        this.setState( {value: event.target.value} )
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        this.props.addtodo
+    handleSubmit = () => {
+        const todo = { 
+            value: this.state.value,
+            completed: false,
+            id: this.props.todos.length,
+        }
+        this.props.addtodo(todo);
+        this.setState({value: ''});
     }
-
 
     render(){
         return (
             <div>
                 <h1>To Do List</h1>
                 <ul>
-                    {this.state.todos.map( (todo, i) => {
+                    {this.props.todos.map( (todo, i) => {
+                        const style = todo.completed ? "line-through" : "none";
+                        const styles = { textDecoration: style };
                         return (
-                            <li>
+                            <li style={styles} onClick={()=> this.props.toggleComplete(todo)}>
                                 {todo.value}
                             </li>
                         )
@@ -48,4 +50,4 @@ const mapStateToProps = (state) => {
     return { todos: state };
 }
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(mapStateToProps, { addtodo, toggleComplete })(TodoList);
