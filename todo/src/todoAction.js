@@ -1,3 +1,5 @@
+let id = 0
+
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 
@@ -6,7 +8,11 @@ export const addTodo = (item) => {
 
   return {
     type: ADD_TODO,
-    payload: {value: item, completed: false}
+    payload: {
+      value: item,
+      completed: false,
+      id: id++
+    }
   }
 }
 
