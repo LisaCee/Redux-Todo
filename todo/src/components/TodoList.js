@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addtodo, toggleComplete } from '../actions';
+import { addtodo, toggleComplete, deleteTodo } from '../actions';
 
 
 class TodoList extends Component {
@@ -31,9 +31,12 @@ class TodoList extends Component {
                         const style = todo.completed ? "line-through" : "none";
                         const styles = { textDecoration: style };
                         return (
-                            <li style={styles} onClick={()=> this.props.toggleComplete(todo)}>
-                                {todo.value}
-                            </li>
+                            <div>
+                                <li style={styles} onClick={() => this.props.toggleComplete(todo)}>
+                                    {todo.value}
+                                    <button onClick={() => this.props.deleteTodo(todo)}>Delete</button>                    
+                                </li>
+                            </div>
                         )
                     })}
                     <input placeholder="New Todo" onChange={this.handleChange} value={this.state.value}/>
@@ -50,4 +53,4 @@ const mapStateToProps = (state) => {
     return { todos: state };
 }
 
-export default connect(mapStateToProps, { addtodo, toggleComplete })(TodoList);
+export default connect(mapStateToProps, { addtodo, toggleComplete, deleteTodo })(TodoList);
