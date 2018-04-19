@@ -1,13 +1,18 @@
 export const ADD_TODO = 'ADD_TODO'
+export const TOGGLE_TODO = 'TOGGLE_TODO'
 
-const addTodo = (item) => {
+export const addTodo = (item) => {
   console.log("Action Item: ", item);
 
   return {
     type: ADD_TODO,
-    payload: item,
+    payload: {value: item, completed: false}
   }
 }
 
-export default addTodo;
-
+export const toggleTodo = (index) => {
+  return {
+    type: TOGGLE_TODO,
+    payload: index
+  }
+}

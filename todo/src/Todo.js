@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import addTodo from './todoAction.js';
+import  { addTodo, toggleTodo } from './todoAction.js';
 
 class Todo extends Component {
 	constructor() {
@@ -33,9 +33,12 @@ class Todo extends Component {
 						/>
 				</form>
 				<ul>
-					{this.props.todos.map(todo => {
-					return (<li key={todo}>
-						{todo}
+					{this.props.todos.map((todo, index) => {
+					return (<li key={index}>
+						{todo.value}
+						<input type="checkbox"
+									 onClick={() => this.props.toggleTodo(index)}
+									 value={todo.completed} />
 					</li>)
 				})}
 				</ul>
@@ -48,6 +51,6 @@ const mapStateToProps = (state) => {
   return { todos: state }
 }
 
-export default connect(mapStateToProps, { addTodo })(Todo)
+export default connect(mapStateToProps, { addTodo, toggleTodo })(Todo)
 
 
