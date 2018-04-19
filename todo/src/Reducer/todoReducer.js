@@ -1,19 +1,28 @@
-import { ADD_TODO, TOGGLE_COMPLETED } from '../Actions';
+import { ADD_TODO } from '../Actions/actions';
 
-export default(state = [], action) => {
+// state = [ { todos, completed } ]
+// action = { type: ADD_TODO, payload: todoItem }
+
+export default(todos = [], action) => {
     switch(action.type) {
         case ADD_TODO:
         // add to our todo
-        return [...state, action.payload]
 
-        case TOGGLE_COMPLETED:
+        const newTodo = {
+             todoItem: action.payload,
+             completed: false
+        }
+
+        return [...todos, newTodo]
+
+        // case TOGGLE_COMPLETED:
         // if set is complete vs is not complete
-        return state.map((todo, index) => {
-            return index !== action.payload ? todo : 
-                Object.assign({}, todo, {completed: !todo.completed});
-        });
+        // return todos.map((todo, index) => {
+        //     return index !== action.payload ? todo : 
+        //         Object.assign({}, todo, {completed: !todo.completed});
+        // });
 
         default:
-        return state;
+        return todos;
     }
 };
