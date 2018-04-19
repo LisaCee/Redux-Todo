@@ -6,21 +6,14 @@ import { addtodo } from '../actions';
 
 class TodoList extends Component {
     state = {
-        todos: [
-            {
-                value: 'Walk the dog.',
-                completed: false
-            },
-            {
-                value: 'Walk the dog.',
-                completed: false
-            },
-        ],
-        value: ''
+        todo: {
+            value: '',
+            completed: false
+        }
     };
 
     handleChange = (event) => {
-        this.setState( {value:event.target.value} )
+        this.setState( {todo.value: event.target.todo} )
     }
 
     handleSubmit = (event) => {
