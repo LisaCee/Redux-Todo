@@ -1,38 +1,38 @@
-// import React, { Component } from "react";
-// import { connect } from 'react-redux';
-// import { increment, decrement } from '../actions';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { addTodo } from '../actions'
+import NewTodo from './NewTodo'
 
 
+class TodoList extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-// class TodoList extends Component {
-   
-//     render() {
-//         return (
-//             // <p>
-//             //     Clicked: {this.props.count} times
-//             //     <button onClick={() => this.props.increment()/* Fill me in */ }>
-//             //         +
-//             //     </button>
-//             //     <button onClick={() => this.props.decrement()/* Fill me in */ }>
-//             //         -
-//             //     </button>
-//             //      {/* Uncomment these button tags if you got
-//             //     around to implementing the extra credit functions */}
-//             //     <button onClick={this.incrementIfOdd}>
-//             //         Increment if odd
-//             //     </button>
-//             //     <button onClick={this.incrementAsync}>
-//             //         Increment async
-//             //     </button> 
-//             // </p>
-//         );
-//     }
-// }
+  componentDidMount() {
+    this.props.addTodo();
+  }
 
-// const mapStateToProps = (state) => {
-//     return {
-//         todos: state
-//     };
-// };
+  render() {
+    return (
+      <div className="App">
+        <ul>
+          <li>
+            <h3>Todos:</h3>
+              {this.props.todos.map(todo => {
+                return <li>{todo}</li>;
+              })}
+          </li>
+        </ul>
+      </div>
+    );
+  }
+}
 
-// export default connect(mapStateToProps, { increment, decrement })(Counter);
+const mapStateToProps = (state) => {
+  return {
+      todos: state
+  };
+};
+
+export default connect(mapStateToProps, { addTodo })(TodoList);
