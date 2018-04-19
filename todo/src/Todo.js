@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import  { addTodo, toggleTodo } from './todoAction.js';
+import  { addTodo, toggleTodo, deleteTodo } from './todoAction.js';
 
 class Todo extends Component {
   constructor() {
@@ -20,6 +20,11 @@ class Todo extends Component {
     this.setState({ newTodo: ""});
   }
 
+  handleDelete = (e, id) => {
+    e.preventDefault()
+    this.props.deleteTodo(id)
+  }
+
   render() {
     return (
 	<div>
@@ -35,10 +40,10 @@ class Todo extends Component {
 	<ul>
 	{this.props.todos.map((todo, index) => {
 	  return (<li key={index}>
-		  {todo.value}
 		  <input type="checkbox"
-		  onClick={() => this.props.toggleTodo(index)}
+		  onClick={() => this.props.toggleTodo(todo.id)}
 		  value={todo.completed} />
+		      {todo.value} <a onClick={(e) => this.handleDelete(e, todo.id)} href="">x</a>
 		  </li>)
 	})}
       </ul>
@@ -51,6 +56,8 @@ const mapStateToProps = (state) => {
   return { todos: state }
 }
 
-export default connect(mapStateToProps, { addTodo, toggleTodo })(Todo)
+const mapDispatchToProps = { addTodo, toggleTodo, deleteTodo }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Todo)
 
 
