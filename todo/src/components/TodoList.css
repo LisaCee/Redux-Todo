@@ -1,0 +1,19 @@
+* {
+    margin: 10px;
+}
+ul {
+    list-style-type: none;
+}
+button {
+    border-radius: 10px;
+    background: black;
+    color: white;
+}
+li button {
+    margin-left: 15px;
+}
+
+input {
+    display: block;
+    margin: 0 auto;
+}
